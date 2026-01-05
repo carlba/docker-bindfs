@@ -1,6 +1,6 @@
 services:
   bindfs:
-    image: carlba/docker-bindfs
+    image: ghcr.io/carlba/docker-bindfs:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,7 +20,7 @@ services:
 
   # Example: Read-only mirror
   bindfs-readonly:
-    image: carlba/docker-bindfs
+    image: ghcr.io/carlba/docker-bindfs:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
 
   # Example: Mirror with ownership changes
   bindfs-ownership:
-    image: carlba/docker-bindfs
+    image: ghcr.io/carlba/docker-bindfs:latest
     build:
       context: .
       dockerfile: Dockerfile

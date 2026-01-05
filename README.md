@@ -11,7 +11,15 @@ Bindfs is a FUSE filesystem that allows you to mirror a directory to another loc
 - Modifying permission bits using chmod-like syntax
 - Changing the permissions with which files are created
 
-## Building the Image
+## Getting the Image
+
+You can pull the pre-built image from GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/carlba/docker-bindfs:latest
+```
+
+Or build it locally:
 
 ```bash
 docker build -t carlba/docker-bindfs .
@@ -58,7 +66,7 @@ docker run --rm -it \
   --device /dev/fuse \
   -v /source/path:/mnt/source:rshared \
   -v /target/path:/mnt/target:rshared \
-  carlba/docker-bindfs \
+  ghcr.io/carlba/docker-bindfs:latest \
   /mnt/source /mnt/target [bindfs-options]
 ```
 
@@ -73,7 +81,7 @@ docker run --rm -it \
   --device /dev/fuse \
   -v /path/to/source:/mnt/source:rshared \
   -v /path/to/target:/mnt/target:rshared \
-  carlba/docker-bindfs \
+  ghcr.io/carlba/docker-bindfs:latest \
   --force-user=1000 --force-group=1000 /mnt/source /mnt/target
 ```
 
@@ -86,7 +94,7 @@ docker run --rm -it \
   --device /dev/fuse \
   -v /path/to/source:/mnt/source:rshared \
   -v /path/to/target:/mnt/target:rshared \
-  carlba/docker-bindfs \
+  ghcr.io/carlba/docker-bindfs:latest \
   -o ro /mnt/source /mnt/target
 ```
 
@@ -99,20 +107,20 @@ docker run --rm -it \
   --device /dev/fuse \
   -v /path/to/source:/mnt/source:rshared \
   -v /path/to/target:/mnt/target:rshared \
-  carlba/docker-bindfs \
+  ghcr.io/carlba/docker-bindfs:latest \
   --chmod-ignore --chmod=a-x /mnt/source /mnt/target
 ```
 
 #### View help and available options
 
 ```bash
-docker run --rm carlba/docker-bindfs
+docker run --rm ghcr.io/carlba/docker-bindfs:latest
 ```
 
 Or with explicit help flag:
 
 ```bash
-docker run --rm carlba/docker-bindfs --help
+docker run --rm ghcr.io/carlba/docker-bindfs:latest --help
 ```
 
 ## Important Notes
