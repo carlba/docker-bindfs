@@ -1,0 +1,60 @@
+services:
+  bindfs:
+    image: carlba/docker-bindfs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bindfs
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    volumes:
+      # Mount source directory (read from host)
+      - ./source:/mnt/source:rshared
+      # Mount target directory (bindfs mirror)
+      - ./target:/mnt/target:rshared
+    command: /mnt/source /mnt/target
+    restart: unless-stopped
+
+  # Example: Read-only mirror
+  bindfs-readonly:
+    image: carlba/docker-bindfs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bindfs-readonly
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    volumes:
+      - ./source:/mnt/source:rshared
+      - ./target-ro:/mnt/target:rshared
+    command: -o ro /mnt/source /mnt/target
+    restart: unless-stopped
+    profiles:
+      - readonly
+
+  # Example: Mirror with ownership changes
+  bindfs-ownership:
+    image: carlba/docker-bindfs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bindfs-ownership
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    volumes:
+      - ./source:/mnt/source:rshared
+      - ./target-owned:/mnt/target:rshared
+    # Change ownership to user 1000:1000
+    command: --force-user=1000 --force-group=1000 /mnt/source /mnt/target
+    restart: unless-stopped
+    profiles:
+      - ownership

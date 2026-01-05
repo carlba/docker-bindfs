@@ -17,6 +17,34 @@ Bindfs is a FUSE filesystem that allows you to mirror a directory to another loc
 docker build -t carlba/docker-bindfs .
 ```
 
+## Usage with Docker Compose
+
+The easiest way to use this container is with Docker Compose:
+
+```bash
+# Create source and target directories
+mkdir -p source target
+
+# Start the basic bindfs service
+docker-compose up -d
+
+# Or start with a specific profile (e.g., read-only mirror)
+docker-compose --profile readonly up -d
+
+# Or start with ownership changes
+docker-compose --profile ownership up -d
+
+# Stop the service
+docker-compose down
+```
+
+The `docker-compose.yaml` includes three service examples:
+- `bindfs`: Basic mirror (default)
+- `bindfs-readonly`: Read-only mirror (profile: readonly)
+- `bindfs-ownership`: Mirror with ownership changes to user 1000:1000 (profile: ownership)
+
+You can customize the `docker-compose.yaml` file to fit your specific needs.
+
 ## Usage
 
 ### Basic Usage
