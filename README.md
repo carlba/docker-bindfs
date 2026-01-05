@@ -78,6 +78,12 @@ docker run --rm -it \
 #### View help and available options
 
 ```bash
+docker run --rm carlba/docker-bindfs
+```
+
+Or with explicit help flag:
+
+```bash
 docker run --rm carlba/docker-bindfs --help
 ```
 
@@ -85,7 +91,7 @@ docker run --rm carlba/docker-bindfs --help
 
 - The container must run with `--privileged` flag or at minimum `--cap-add SYS_ADMIN` and `--device /dev/fuse`
 - Source and target volumes should be mounted with `:rshared` propagation to ensure the FUSE mount is visible
-- Bindfs runs in foreground mode by default; use `-f` flag if needed
+- The container automatically runs bindfs in foreground mode to keep the container running
 - To unmount, stop the container with `docker stop <container-id>`
 
 ## License
